@@ -67,17 +67,17 @@ def check_attributes_distribution(df):
     plt.show()
 
 from sklearn.preprocessing import StandardScaler
-def attributes_standardizing(df):
+def attributes_standardization(df):
     X = np.array(df.iloc[: , :-1])
     transformer = StandardScaler().fit(X)
     X_norm = transformer.transform(X)
     df = df.replace(X,X_norm)
     return df
 
-from sklearn.preprocessing import Normalizer
-def attributes_normalizing(df):
+from sklearn.preprocessing import MinMaxScaler
+def attributes_normalization(df):
     X = np.array(df.iloc[: , :-1])
-    transformer = Normalizer(norm="l1").fit(X)
+    transformer = MinMaxScaler().fit(X)
     X_norm = transformer.transform(X)
     df = df.replace(X,X_norm)
     return df
