@@ -44,18 +44,31 @@ for degree in range (2,20):
     current_scores=([svm.SVC(kernel="poly", gamma=gamma, degree=degree, C=c).fit(X_train, y_train).score(X_test, y_test) for c in range(1,10)])
     poly_scores.append([max(current_scores),argmax(current_scores)+1, degree])
 poly_scores=np.array(poly_scores)
+x_plot=poly_scores[:,2]
 scores=poly_scores[:,0]
+y_plot=scores
 best_poly=poly_scores[argmax(scores)]
+plt.ylabel("accuracy")
+plt.xlabel("degree")
+plt.title("Polynomial Kernels")
+plt.grid(1)
+plt.xticks(x_plot)
+plt.plot(x_plot,y_plot) 
+plt.show()
 
 # GENERATE MODELS
-C = best_lin[1]
+#C = best_lin[1]
+C=3
 svm_lin = svm.SVC(kernel="linear", gamma=gamma, C=C)
-C = best_rbf[1]
+#C = best_rbf[1]
+C=7
 svm_rbf = svm.SVC(kernel="rbf", gamma=gamma, C=C)
-C = best_sgd[1]
+#C = best_sgd[1]
+C=1
 svm_sgd = svm.SVC(kernel="sigmoid", gamma=gamma, C=C)
-C = best_poly[1]
-degree = 6
+#C = best_poly[1]
+C=1
+degree = 5
 svm_poly = svm.SVC(kernel="poly", gamma=gamma, C=C, degree=degree)
 
 # 10 REPETITIONS OF 5-FOLD CROSS VALIDATION
@@ -68,5 +81,10 @@ rkf = RepeatedKFold(n_splits, n_repeats)
 for train_index, test_index in rkf.split(X):
     X_train, X_test = X[train_index], X[test_index]
     y_train, y_test = y[train_index], y[test_index]
-    scores.append([clf.fit(X_train, y_train).score(X_test, y_test) for clf in (svm_lin, svm_rbf, svm_sgd)])
+    scores.append([clf.fit(X_train, y_train).score(X_test, y_test) for clf in (svm_lin, svm_rbf, svm_sgd, svm_poly)])
 print(scores)
+lin_scores=np.array(scores[:,0])
+rbf_scores=np.array(scores[:,1])
+sgd_scores=np.array(scores[:,2])
+svm_scores=np.array(scores[:,3])
+print(svm_lin.C, svm_rbf.C, svm_sgd.C, svm_poly.C)
