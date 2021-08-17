@@ -114,5 +114,4 @@ mlp_boost = gradBoosting(mlp_clf)
 knn_boost = gradBoosting(knn_clf)
 #svm_boost = adaBoosting(svm_poly)
 
-stack = stacking(estimators=[('mlp',mlp_clf),('knn',knn_clf),('svm',svm_rbf)],
-                final_estimator=knn_clf)
+stack = stacking(estimators=[('mlp',mlp_clf),('knn',knn_clf),('svm',svm_rbf)])
