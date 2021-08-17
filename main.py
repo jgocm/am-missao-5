@@ -49,12 +49,12 @@ X_test_std = std_scaler.transform(X_test)
 X_train = X_train_std
 X_test = X_test_std
 
-X_train_drop = np.delete(X_train,0,axis=1)
-X_test_drop = np.delete(X_test,0,axis=1)
+#X_train_drop = np.delete(X_train,0,axis=1)
+#X_test_drop = np.delete(X_test,0,axis=1)
+#svm_lin, svm_rbf, svm_sgd, svm_poly = svm.tune(X_train_drop, X_test_drop, y_train, y_test)
 
-svm_lin, svm_rbf, svm_sgd, svm_poly = svm.tune(X_train_drop, X_test_drop, y_train, y_test)
-svm_lin, svm_rbf, svm_sgd, svm_poly = svm.tune(X_train, X_test, y_train, y_test)
 mlp_clf = mlp.tune(X_train, X_test, y_train, y_test, search='random', n_iter=100)
+svm_lin, svm_rbf, svm_sgd, svm_poly = svm.tune(X_train, X_test, y_train, y_test)
 knn_clf = knn.tune(X_train, X_test, y_train, y_test)
 
 def bagging(estimator):
@@ -92,7 +92,7 @@ def stacking(estimators, final_estimator=LogisticRegression(), n_iter=10):
     
     #parameter_space={'knn__metric': ['euclidean','minkowski'],
     #                'mlp__hidden_layer_sizes': [(10,30,10),(30,30),(7,7)],
-    #               'mlp__activation': ['identity', 'logistic', 'tanh', 'relu'],
+    #                'mlp__activation': ['identity', 'logistic', 'tanh', 'relu'],
     #                'mlp__solver': ['lbfgs', 'sgd', 'adam'],
     #                'mlp__alpha':loguniform(1e-4, 5),
     #                'mlp__learning_rate': ['constant', 'invscaling', 'adaptive']

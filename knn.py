@@ -14,8 +14,9 @@ def tune(X_train, X_test, y_train, y_test):
     plt.ylabel("accuracy")
     plt.xlabel("K")
     plt.title("K validation")
-    plt.plot(k_range,test_scores,'r')
-    plt.plot(k_range,train_scores,'b')
+    plt.plot(k_range,test_scores,'r', label="test")
+    plt.plot(k_range,train_scores,'b', label="train")
+    plt.legend()
     plt.show()
 
     clf = KNeighborsClassifier(n_neighbors=best_knn[1])
