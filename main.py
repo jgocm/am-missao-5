@@ -28,8 +28,10 @@ warnings.filterwarnings(action='ignore', category=DataConversionWarning)
 
 DF_PATH = os.path.dirname(__file__) + "/glass.csv"
 df = pd.read_csv(DF_PATH, encoding="utf-8")
+#df_drop = df.drop(columns="RI")
 
 X = np.array(df.iloc[:,  :-1])
+#X_drop = np.array(df_drop.iloc[:,  :-1])
 y = np.array(df.iloc[:,-1:  ])
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.8, random_state=42)
@@ -47,6 +49,10 @@ X_test_std = std_scaler.transform(X_test)
 X_train = X_train_std
 X_test = X_test_std
 
+X_train_drop = np.delete(X_train,0,axis=1)
+X_test_drop = np.delete(X_test,0,axis=1)
+
+svm_lin, svm_rbf, svm_sgd, svm_poly = svm.tune(X_train_drop, X_test_drop, y_train, y_test)
 svm_lin, svm_rbf, svm_sgd, svm_poly = svm.tune(X_train, X_test, y_train, y_test)
 mlp_clf = mlp.tune(X_train, X_test, y_train, y_test, search='random', n_iter=100)
 knn_clf = knn.tune(X_train, X_test, y_train, y_test)
