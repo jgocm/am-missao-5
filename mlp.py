@@ -18,7 +18,7 @@ def tune(X_train, X_test, y_train, y_test, search = 'random', n_iter=100):
             'activation': ['identity', 'logistic', 'tanh', 'relu'],
             'solver': ['lbfgs', 'sgd', 'adam'],
             'alpha':loguniform(1e-4, 5),
-            'learning_rate': ['constant', 'invscaling', 'adaptive'],
+            'learning_rate': ['constant', 'invscaling', 'adaptive']
         }
         clf = RandomizedSearchCV(mlp_search, parameter_space, n_iter=n_iter, n_jobs=-1, cv=5)
     elif (search == 'grid'):
@@ -27,7 +27,7 @@ def tune(X_train, X_test, y_train, y_test, search = 'random', n_iter=100):
             'activation': ['identity', 'logistic', 'tanh', 'relu'],
             'solver': ['lbfgs', 'sgd', 'adam'],
             'alpha':[0.1,0.5,1],
-            'learning_rate': ['constant', 'invscaling', 'adaptive'],
+            'learning_rate': ['constant', 'invscaling', 'adaptive']
         }
         clf = GridSearchCV(mlp_search, parameter_space, n_jobs=-1, cv=5)
 
